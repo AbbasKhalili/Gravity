@@ -1,0 +1,12 @@
+matrix:
+  include:
+    - language: csharp
+      mono: none
+      dotnet: 2.1.300
+      script:
+        - dotnet restore Gravity/Gravity.sln
+        - dotnet build Gravity/Gravity.sln
+
+notifications:
+  email:
+- khalilikhoo2@gmail.com
