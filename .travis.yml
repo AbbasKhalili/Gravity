@@ -1,12 +1,11 @@
-matrix:
-  include:
-    - language: csharp
-      mono: none
-      dotnet: 2.1.300
-      script:
-        - dotnet restore Gravity/Gravity.sln
-        - dotnet build Gravity/Gravity.sln
-
-notifications:
-  email:
-- khalilikhoo2@gmail.com
+language: csharp 
+dist: trusty
+mono: none
+dotnet: 2.1
+branches:  
+  only:  
+    - master
+before_script: cd src
+script:  
+  - dotnet restore 
+  - dotnet build
