@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Geotechnic.Application\Geotechnic.Application.csproj" />
+    <ProjectReference Include="..\Geotechnic.Domain\Geotechnic.Domain.csproj" />
+    <ProjectReference Include="..\Geotechnic.Facade.Contracts\Geotechnic.Facade.Contracts.csproj" />
+    <ProjectReference Include="..\Geotechnic.Persistence\Geotechnic.Persistence.csproj" />
+    <ProjectReference Include="..\GeotechnicHost\GeotechnicHost.csproj" />
+  </ItemGroup>
+
+</Project>

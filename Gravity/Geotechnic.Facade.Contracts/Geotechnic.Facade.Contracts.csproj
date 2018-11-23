@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Additives\Commands\" />
+    <Folder Include="Additives\DTOs\" />
+    <Folder Include="Additives\Services\" />
+    <Folder Include="BreakTemplate\Commands\" />
+    <Folder Include="BreakTemplate\DTOs\" />
+    <Folder Include="BreakTemplate\Services\" />
+    <Folder Include="ExamplePlace\DTOs\" />
+    <Folder Include="ExamplePlace\Commands\" />
+    <Folder Include="ExamplePlace\Services\" />
+    <Folder Include="OrderConcrete\Commands\" />
+    <Folder Include="OrderConcrete\DTOs\" />
+    <Folder Include="OrderConcrete\Services\" />
+    <Folder Include="Project\DTOs\" />
+    <Folder Include="Project\Commands\" />
+    <Folder Include="Project\Services\" />
+  </ItemGroup>
+
+</Project>
