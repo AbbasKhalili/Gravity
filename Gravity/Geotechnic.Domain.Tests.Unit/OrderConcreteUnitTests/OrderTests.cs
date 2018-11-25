@@ -143,5 +143,26 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
 
             order.Should().Throw<ExampleNumberException>();
         }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public void Constructor_and_Update_should_throw_when_ProjectId_is_lower_than_One(long projectId)
+        {
+            var orderModel = _builder.WithExampleNumber(ExampleNumber).WithProject(projectId).Build();
+            Action order = () => new Order(BranchId, OrderId, orderModel);
+
+            order.Should().Throw<ProjectException>();
+        }
+
+        [Fact]
+        public void Constructor_and_Update_should_throw_when_ExampleDate_is_null()
+        {
+            var orderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(default(DateTime)).Build();
+            Action order = () => new Order(BranchId, OrderId, orderModel);
+
+            order.Should().Throw<ExampleDateException>();
+        }
     }
 }

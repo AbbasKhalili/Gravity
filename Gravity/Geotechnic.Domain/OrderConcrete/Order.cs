@@ -5,6 +5,7 @@ using Geotechnic.Domain.BreakTemplates;
 using Geotechnic.Domain.ExamplePlaces;
 using Geotechnic.Domain.OrderConcrete.Exceptions;
 using Gravity.Domain;
+using Gravity.Tools;
 
 namespace Geotechnic.Domain.OrderConcrete
 {
@@ -29,20 +30,14 @@ namespace Geotechnic.Domain.OrderConcrete
 
         public Order(long branchId, OrderId id, OrderModel order)
         {
-            ExampleNumberValidator(order.ExampleNumber);
+            Guard<ExampleNumberException>.SmallerThan(order.ExampleNumber, 1);
 
             BranchId = branchId;
             Id = id;
             ExampleNumber = order.ExampleNumber;
             SetProperties(order);
         }
-
-        private void ExampleNumberValidator(long exampleNumber)
-        {
-            if (exampleNumber <= 0)
-                throw new ExampleNumberException();
-        }
-
+        
         public void Update(OrderModel order)
         {
             SetProperties(order);
@@ -50,6 +45,12 @@ namespace Geotechnic.Domain.OrderConcrete
 
         private void SetProperties(OrderModel order)
         {
+            Guard<ProjectException>.SmallerThan(order.ProjectId, 1);
+            Guard<ExampleDateException>.AgainstNull(order.ExampleDate);
+            Guard<ExamplePlaceException>.AgainstNull(order.ExamplePlace);
+            Guard<CementTypeException>.Between((int)order.CementType, 1, 5);
+            Guard<BreakTemplateException>.AgainstNull(order.BreakTemplateId);
+
             Additives = order.Additives;
             Axis = order.Axis;
             BreakTemplateId = order.BreakTemplateId;
