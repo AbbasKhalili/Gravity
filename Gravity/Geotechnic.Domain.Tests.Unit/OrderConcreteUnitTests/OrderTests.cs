@@ -139,11 +139,10 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
         public void Constructor_should_throw_when_ExampleNumber_is_lower_than_One(long exampleNumber)
         {
             var orderModel = _builder.WithExampleNumber(exampleNumber).Build();
-            Action order = ()=> new Order(BranchId, OrderId, orderModel);
-
+            Action order = () => new Order(BranchId, OrderId, orderModel);
             order.Should().Throw<ExampleNumberException>();
         }
-
+        
         [Theory]
         [InlineData(0)]
         [InlineData(-1)]
@@ -155,6 +154,21 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
             order.Should().Throw<ProjectException>();
         }
 
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public void Update_should_throw_when_ProjectId_is_lower_than_One(long projectId)
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var expectedOrderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(projectId).Build();
+            Action update = () => order.Update(expectedOrderModel);
+
+            update.Should().Throw<ProjectException>();
+        }
+
         [Fact]
         public void Constructor_should_throw_when_ExampleDate_is_null()
         {
@@ -163,6 +177,107 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
             Action order = () => new Order(BranchId, OrderId, orderModel);
 
             order.Should().Throw<ExampleDateException>();
+        }
+        
+        [Fact]
+        public void Update_should_throw_when_ExampleDate_is_null()
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var expectedOrderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(default(DateTime)).Build();
+            Action update = () => order.Update(expectedOrderModel);
+
+            update.Should().Throw<ExampleDateException>();
+        }
+
+        [Fact]
+        public void Constructor_should_throw_when_ExamplePlace_is_null()
+        {
+            var orderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(_exampleDate)
+                .WithExamplePlace(null,"").Build();
+            Action order = () => new Order(BranchId, OrderId, orderModel);
+
+            order.Should().Throw<ExamplePlaceException>();
+        }
+
+        [Fact]
+        public void Update_should_throw_when_ExamplePlace_is_null()
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var expectedOrderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(_exampleDate)
+                .WithExamplePlace(null,"").Build();
+            Action update = () => order.Update(expectedOrderModel);
+
+            update.Should().Throw<ExamplePlaceException>();
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(6)]
+        public void Constructor_should_throw_when_CementType_is_not_between_1_to_5(int cementType)
+        {
+            var orderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(_exampleDate)
+                .WithExamplePlace(ExamplePlace, "").WithCutie(0,(CementTypes)cementType).Build();
+            Action order = () => new Order(BranchId, OrderId, orderModel);
+
+            order.Should().Throw<CementTypeException>();
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(6)]
+        public void Update_should_throw_when_CementType_is_not_between_1_to_5(int cementType)
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+            var expectedOrderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(_exampleDate)
+                .WithExamplePlace(ExamplePlace, "").WithCutie(0, (CementTypes) cementType).Build();
+            Action update = () => order.Update(expectedOrderModel);
+
+            update.Should().Throw<CementTypeException>();
+        }
+
+        [Fact]
+        public void Constructor_should_throw_when_BreakTemplate_is_null()
+        {
+            var orderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(_exampleDate)
+                .WithExamplePlace(ExamplePlace, "").WithCutie(0,CementTypes.Type2)
+                .With(breakTemplateId:null).Build();
+            Action order = () => new Order(BranchId, OrderId, orderModel);
+
+            order.Should().Throw<BreakTemplateException>();
+        }
+
+        [Fact]
+        public void Update_should_throw_when_BreakTemplate_is_null()
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var expectedOrderModel = _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(_exampleDate)
+                .WithExamplePlace(ExamplePlace, "").WithCutie(0, CementTypes.Type2)
+                .With(breakTemplateId: null).Build();
+            Action update = () => order.Update(expectedOrderModel);
+
+            update.Should().Throw<BreakTemplateException>();
+        }
+
+        private OrderModel CreateValidOrderModel()
+        {
+            return _builder.WithExampleNumber(ExampleNumber)
+                .WithProject(ProjectId).WithExampleDate(_exampleDate)
+                .WithExamplePlace(ExamplePlace, "").WithCutie(0, CementTypes.Type2)
+                .With(BreakTempId).Build();
         }
     }
 }
