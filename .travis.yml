@@ -1,5 +1,5 @@
 language: csharp 
-solution: Gravity.sln
+solution: Gravity/Gravity.sln
 dist: trusty
 mono: none
 dotnet: 2.1
@@ -7,7 +7,7 @@ branches:
   only:  
     - master
 install:
-  - nuget restore ./Gravity/Gravity.sln
+  - nuget restore Gravity/Gravity.sln -Verbosity detailed
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Gravity/Gravity.sln
