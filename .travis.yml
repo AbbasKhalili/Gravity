@@ -1,7 +1,7 @@
 language: csharp 
 solution: Gravity/Gravity.sln
 dist: trusty
-mono: none
+mono: latest
 dotnet: 2.1
 branches:  
   only:  
