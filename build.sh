@@ -9,6 +9,7 @@
 # Define directories.
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOOLS_DIR=$SCRIPT_DIR/tools
+BUILD_DIR=$SCRIPT_DIR/Build
 ADDINS_DIR=$TOOLS_DIR/Addins
 MODULES_DIR=$TOOLS_DIR/Modules
 NUGET_EXE=$TOOLS_DIR/nuget.exe
@@ -114,4 +115,4 @@ if [ ! -f "$CAKE_EXE" ]; then
 fi
 
 # Start Cake
-exec mono "$CAKE_EXE" ./Build/build.cake "${CAKE_ARGUMENTS[@]}"
+exec mono "$CAKE_EXE" $BUILD_DIR/$SCRIPT "${CAKE_ARGUMENTS[@]}"
