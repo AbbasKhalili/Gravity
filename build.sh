@@ -27,7 +27,7 @@ else
 fi
 
 # Define default arguments.
-SCRIPT="./Build/build.cake"
+SCRIPT="build.cake"
 CAKE_ARGUMENTS=()
 
 # Parse arguments.
@@ -114,4 +114,4 @@ if [ ! -f "$CAKE_EXE" ]; then
 fi
 
 # Start Cake
-exec mono "$CAKE_EXE" $SCRIPT "${CAKE_ARGUMENTS[@]}"
+exec mono "$CAKE_EXE" ./Build/build.cake "${CAKE_ARGUMENTS[@]}"
