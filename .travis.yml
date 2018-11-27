@@ -6,6 +6,8 @@ dotnet: 2.1
 branches:  
   only:  
     - master
+before_install:
+  - chmod +x build.sh
 install:
   - curl -L -o nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   - mono nuget.exe restore Gravity/Gravity.sln
