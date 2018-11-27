@@ -20,7 +20,7 @@ namespace Geotechnic.Domain.OrderConcrete
 
         public override int HashCode()
         {
-            return new HashCodeBuilder().Append(this.DbId).ToHashCode();
+            return new HashCodeBuilder().Append(DbId).ToHashCode();
         }
     }
 }

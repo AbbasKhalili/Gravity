@@ -4,9 +4,9 @@ namespace Geotechnic.Domain.Tests.Unit.AdditivesUnitTests
 {
     internal class AdditiveBuilder
     {
-        public long BranchId { get; private set; }
-        public AdditiveId Id { get; private set; }
-        public string Title { get; private set; }
+        private long BranchId { get;  set; }
+        private AdditiveId Id { get;  set; }
+        private string Title { get;  set; }
 
         public AdditiveBuilder()
         {

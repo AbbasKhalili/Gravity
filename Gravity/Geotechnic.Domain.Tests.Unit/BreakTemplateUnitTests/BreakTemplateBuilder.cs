@@ -5,11 +5,11 @@ namespace Geotechnic.Domain.Tests.Unit.BreakTemplateUnitTests
 {
     internal class BreakTemplateBuilder
     {
-        public string Title { get; private set; }
-        public int MoldCount { get; private set; }
-        public long BranchId { get; private set; }
-        public BreakTemplateId Id { get; private set; }
-        public List<BreakTemplateMolds> BreakTemplateMolds { get; private set; }
+        private string Title { get;  set; }
+        private int MoldCount { get;  set; }
+        private long BranchId { get;  set; }
+        private BreakTemplateId Id { get;  set; }
+        private List<BreakTemplateMolds> BreakTemplateMolds { get;  set; }
 
         public BreakTemplateBuilder()
         {

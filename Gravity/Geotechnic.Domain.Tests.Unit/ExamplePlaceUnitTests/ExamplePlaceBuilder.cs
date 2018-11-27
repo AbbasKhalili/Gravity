@@ -4,10 +4,10 @@ namespace Geotechnic.Domain.Tests.Unit.ExamplePlaceUnitTests
 {
     internal class ExamplePlaceBuilder
     {
-        public long BranchId { get; private set; }
-        public ExamplePlaceId Id { get; private set; }
-        public string Title { get; private set; }
-        public string Character { get; private set; }
+        private long BranchId { get;  set; }
+        private ExamplePlaceId Id { get;  set; }
+        private string Title { get;  set; }
+        private string Character { get;  set; }
 
         public ExamplePlaceBuilder()
         {

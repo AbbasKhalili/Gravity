@@ -9,22 +9,22 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
 {
     internal class OrderBuilder
     {
-        public long ProjectId { get; private set; }
-        public long ExampleNumber { get; private set; }
-        public DateTime ExampleDate { get; private set; }
-        public ExamplePlaceId ExamplePlace { get; private set; }
-        public string ExamplePlaceDesc { get; private set; }
-        public CementTypes CementType { get; private set; }
-        public int EnvironmentTemperature { get; private set; }
-        public int ConcreteTemperature { get; private set; }
-        public int Cutie { get; private set; }
-        public double Slamp { get; private set; }
-        public int Volume { get; private set; }
-        public string Axis { get; private set; }
-        public string ConcreteSeller { get; private set; }
-        public int Fc { get; private set; }
-        public IList<AdditiveId> Additives { get; private set; }
-        public BreakTemplateId BreakTemplateId { get; private set; }
+        private long ProjectId { get;  set; }
+        private long ExampleNumber { get;  set; }
+        private DateTime ExampleDate { get;  set; }
+        private ExamplePlaceId ExamplePlace { get;  set; }
+        private string ExamplePlaceDesc { get;  set; }
+        private CementTypes CementType { get;  set; }
+        private int EnvironmentTemperature { get;  set; }
+        private int ConcreteTemperature { get;  set; }
+        private int Cutie { get;  set; }
+        private double Slamp { get;  set; }
+        private int Volume { get;  set; }
+        private string Axis { get;  set; }
+        private string ConcreteSeller { get;  set; }
+        private int Fc { get;  set; }
+        private IList<AdditiveId> Additives { get;  set; }
+        private BreakTemplateId BreakTemplateId { get;  set; }
         
 
         public OrderModel Build()

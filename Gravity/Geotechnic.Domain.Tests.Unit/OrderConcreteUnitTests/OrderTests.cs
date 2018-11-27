@@ -14,6 +14,8 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
     public class OrderTests : EntityIdTest<OrderId>
     {
         private readonly OrderBuilder _builder;
+        private readonly BreakBuilder _breakBuilder;
+
         private readonly EntityIdBuilder<AdditiveId> _additiveIdBuilder;
         private readonly EntityIdBuilder<BreakTemplateId> _breakTemplateIdBuilder;
         private readonly EntityIdBuilder<ExamplePlaceId> _examplePlaceBuilder;
@@ -40,9 +42,24 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
         private List<AdditiveId> Additives => new List<AdditiveId>() { _additiveIdBuilder.WithId(100).Build(), _additiveIdBuilder.WithId(101).Build() };
         private BreakTemplateId BreakTempId => _breakTemplateIdBuilder.WithId(5).Build();
 
+
+
+
+        private const int Age = 7;
+        private readonly DateTime _breakDate = DateTime.Now.Date;
+        private const double Height = 14.8;
+        private const double Length = 14.9;
+        private const double Width = 15.1;
+        private const int Weight = 7985;
+        private const int Power = 35500;
+
+
+
         public OrderTests()
         {
             _builder = new OrderBuilder();
+            _breakBuilder = new BreakBuilder();
+
             _idBuilder = new EntityIdBuilder<OrderId>();
             _additiveIdBuilder = new EntityIdBuilder<AdditiveId>();
             _breakTemplateIdBuilder = new EntityIdBuilder<BreakTemplateId>();
@@ -278,6 +295,22 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
                 .WithProject(ProjectId).WithExampleDate(_exampleDate)
                 .WithExamplePlace(ExamplePlace, "").WithCutie(0, CementTypes.Type2)
                 .With(BreakTempId).Build();
+        }
+
+        [Fact]
+        public void AddBreak_should_add_break_item_into_breaks_list()
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var abreak = _breakBuilder.WithAge(Age).WithBreakDate(_breakDate)
+                .WithHeight(Height).WithLength(Length).WithWidth(Width)
+                .WithWeight(Weight).WithPower(Power).Build();
+
+
+            order.AddBreak(abreak);
+
+            order.GetAllBreak().Should().HaveCount(1);            
         }
     }
 }
