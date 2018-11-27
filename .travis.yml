@@ -7,7 +7,7 @@ branches:
   only:  
     - master
 install:
-  - nuget restore Gravity/Gravity.sln
+  - nuget restore ./Gravity/Gravity.sln
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Gravity/Gravity.sln
