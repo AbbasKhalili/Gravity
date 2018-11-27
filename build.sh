@@ -115,4 +115,4 @@ if [ ! -f "$CAKE_EXE" ]; then
 fi
 
 # Start Cake
-exec mono "$CAKE_EXE" $BUILD_DIR/$SCRIPT "${CAKE_ARGUMENTS[@]}"
+exec mono "$CAKE_EXE" "$BUILD_DIR/$SCRIPT" "${CAKE_ARGUMENTS[@]}"
