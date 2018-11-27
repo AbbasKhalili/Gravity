@@ -7,8 +7,7 @@ branches:
   only:  
     - master
 install:
-  - nuget restore Gravity/Gravity.sln -Verbosity detailed
+  - curl -L -o nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release Gravity/Gravity.sln
-  - mono ./testrunner/xunit.runners.*/tools/xunit.console.clr4.exe ./Gravity/Geotechnic.Domain.Tests.Unit/bin/Release/netcoreapp2.1/Geotechnic.Domain.Tests.Unit.dll.dll
+  - ./build.sh
