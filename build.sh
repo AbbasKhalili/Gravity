@@ -31,6 +31,13 @@ fi
 SCRIPT="build.cake"
 CAKE_ARGUMENTS=()
 
+
+echo "SCRIPT_DIR >>>>>>>>>>>'$SCRIPT_DIR'"
+echo "BUILD_DIR >>>>>>>>>>>'$BUILD_DIR'"
+echo "SCRIPT >>>>>>>>>>>'$SCRIPT'"
+echo "BUILD_DIR///SCRIPT >>>>>>>>>>>'$BUILD_DIR/$SCRIPT'"
+
+
 # Parse arguments.
 for i in "$@"; do
     case $1 in
@@ -115,9 +122,4 @@ if [ ! -f "$CAKE_EXE" ]; then
 fi
 
 # Start Cake
-echo "SCRIPT_DIR >>>>>>>>>>>'$SCRIPT_DIR'"
-echo "BUILD_DIR >>>>>>>>>>>'$BUILD_DIR'"
-echo "SCRIPT >>>>>>>>>>>'$SCRIPT'"
-echo "BUILD_DIR///SCRIPT >>>>>>>>>>>'$BUILD_DIR/$SCRIPT'"
-
 # exec mono "$CAKE_EXE" "$BUILD_DIR/$SCRIPT" "${CAKE_ARGUMENTS[@]}"
