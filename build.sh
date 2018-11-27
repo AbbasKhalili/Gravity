@@ -115,5 +115,3 @@ fi
 
 # Start Cake
 exec mono "$CAKE_EXE" $SCRIPT "${CAKE_ARGUMENTS[@]}"
-
-git update-index --add --chmod=+x build.sh
