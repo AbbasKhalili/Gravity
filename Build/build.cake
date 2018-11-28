@@ -1,5 +1,10 @@
+#addin "Cake.MiniCover"
+     
 #tool "nuget:?package=xunit.runner.console"
 
+
+SetMiniCoverToolsProject("./minicover/minicover.csproj");
+     
 var target = Argument("target", "Package");
 var configuration = Argument("Configuration", "Release");
 var solutionPath = Argument("SolutionPath", @"../Gravity/Gravity.sln");
@@ -45,6 +50,27 @@ Task("Build")
 );
 });
 
+Task("Coverage")
+    .Does(() => 
+{
+    MiniCover(tool =>
+        {
+            foreach(var project in GetFiles("../Gravity/**/*.Tests.Unit.csproj"))
+            {
+                tool.DotNetCoreTest(project.FullPath, new DotNetCoreTestSettings()
+                {
+                    Configuration = configuration,
+                    NoRestore = true,
+                    NoBuild = true
+                });
+            }
+        },
+        new MiniCoverSettings()
+            .WithAssembliesMatching("../Gravity/**/*.dll")
+            .WithSourcesMatching("../Gravity/**/*.cs")
+            .GenerateReport(ReportType.CONSOLE | ReportType.XML)
+    );
+});
 
 Task("Run-Unit-tests")
     .DoesForEach(
@@ -82,6 +108,7 @@ Task("Default")
     .IsDependentOn("Clean")
     .IsDependentOn("Restore-Nuget")
     .IsDependentOn("Build")
+    .IsDependentOn("Coverage")
     .IsDependentOn("Run-Unit-Tests")
     .IsDependentOn("Package");
 
