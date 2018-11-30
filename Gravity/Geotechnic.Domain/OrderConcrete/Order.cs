@@ -75,6 +75,12 @@ namespace Geotechnic.Domain.OrderConcrete
             Breaks.Add(abreak);
         }
 
+        public void AddBreakRange(List<Break> breakRange)
+        {
+            if (Breaks == null) Breaks = new List<Break>();
+            Breaks.AddRange(breakRange);
+        }
+
         public List<Break> GetAllBreak()
         {
             return Breaks;

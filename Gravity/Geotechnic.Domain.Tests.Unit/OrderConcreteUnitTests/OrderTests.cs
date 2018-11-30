@@ -310,7 +310,27 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
 
             order.AddBreak(abreak);
 
-            order.GetAllBreak().Should().HaveCount(1);            
+            order.GetAllBreak().Should().HaveCount(1).And.AllBeEquivalentTo(abreak); 
+            
+        }
+
+        [Fact]
+        public void AddBreakRange_should_add_break_items_into_breaks_list()
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var breakRange = new List<Break>();
+            breakRange.Add(_breakBuilder.WithAge(Age).WithBreakDate(_breakDate)
+                    .WithHeight(Height).WithLength(Length).WithWidth(Width)
+                    .WithWeight(Weight).WithPower(Power).Build());
+            breakRange.Add(_breakBuilder.WithAge(Age).WithBreakDate(_breakDate)
+                .WithHeight(Height).WithLength(Length).WithWidth(Width)
+                .WithWeight(7980).WithPower(39550).Build());
+        
+            order.AddBreakRange(breakRange);
+
+            order.GetAllBreak().Should().HaveCount(2).And.Equal(breakRange);
         }
     }
 }
