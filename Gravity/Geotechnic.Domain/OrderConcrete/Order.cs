@@ -49,7 +49,7 @@ namespace Geotechnic.Domain.OrderConcrete
             Guard<ProjectException>.SmallerThan(order.ProjectId, 1);
             Guard<ExampleDateException>.AgainstNull(order.ExampleDate);
             Guard<ExamplePlaceException>.AgainstNull(order.ExamplePlace);
-            Guard<CementTypeException>.Between((int)order.CementType, 1, 5);
+            Guard<CementTypeException>.NotInRange((int)order.CementType, 1, 5);
             Guard<BreakTemplateException>.AgainstNull(order.BreakTemplateId);
 
             Additives = order.Additives;
@@ -72,13 +72,24 @@ namespace Geotechnic.Domain.OrderConcrete
         public void AddBreak(Break abreak)
         {
             if (Breaks == null) Breaks = new List<Break>();
+            CubeSizeValidator(abreak);
             Breaks.Add(abreak);
         }
 
         public void AddBreakRange(List<Break> breakRange)
         {
-            if (Breaks == null) Breaks = new List<Break>();
-            Breaks.AddRange(breakRange);
+            breakRange.ForEach(a=>
+            {
+                CubeSizeValidator(a);
+                AddBreak(a);
+            });
+        }
+        
+        private void CubeSizeValidator(Break item)
+        {
+            Guard<CubeHeightException>.NotInRange(item.Height,14.5,15.5);
+            Guard<CubeLengthException>.NotInRange(item.Length, 14.5, 15.5);
+            Guard<CubeWidthException>.NotInRange(item.Width, 14.5, 15.5);
         }
 
         public List<Break> GetAllBreak()

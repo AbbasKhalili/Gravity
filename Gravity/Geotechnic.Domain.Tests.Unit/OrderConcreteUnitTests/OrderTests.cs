@@ -307,7 +307,6 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
                 .WithHeight(Height).WithLength(Length).WithWidth(Width)
                 .WithWeight(Weight).WithPower(Power).Build();
 
-
             order.AddBreak(abreak);
 
             order.GetAllBreak().Should().HaveCount(1).And.AllBeEquivalentTo(abreak); 
@@ -331,6 +330,66 @@ namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests
             order.AddBreakRange(breakRange);
 
             order.GetAllBreak().Should().HaveCount(2).And.Equal(breakRange);
+        }
+
+        [Theory]
+        [InlineData(15.6)]
+        [InlineData(14.4)]
+        public void CubeSizeValidator_should_throw_when_Height_is_out_of_range(double size)
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var breakRange = new List<Break>
+            {
+                _breakBuilder.WithAge(Age).WithBreakDate(_breakDate)
+                    .WithHeight(size).WithLength(Length).WithWidth(Width)
+                    .WithWeight(Weight).WithPower(Power).Build()
+            };
+
+            Action validate = ()=> order.AddBreakRange(breakRange);
+
+            validate.Should().Throw<CubeHeightException>();
+        }
+
+        [Theory]
+        [InlineData(15.6)]
+        [InlineData(14.4)]
+        public void CubeSizeValidator_should_throw_when_Length_is_out_of_range(double size)
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var breakRange = new List<Break>
+            {
+                _breakBuilder.WithAge(Age).WithBreakDate(_breakDate)
+                    .WithHeight(Height).WithLength(size).WithWidth(Width)
+                    .WithWeight(Weight).WithPower(Power).Build()
+            };
+
+            Action validate = () => order.AddBreakRange(breakRange);
+
+            validate.Should().Throw<CubeLengthException>();
+        }
+
+        [Theory]
+        [InlineData(15.6)]
+        [InlineData(14.4)]
+        public void CubeSizeValidator_should_throw_when_Width_is_out_of_range(double size)
+        {
+            var orderModel = CreateValidOrderModel();
+            var order = new Order(BranchId, OrderId, orderModel);
+
+            var breakRange = new List<Break>
+            {
+                _breakBuilder.WithAge(Age).WithBreakDate(_breakDate)
+                    .WithHeight(Height).WithLength(Length).WithWidth(size)
+                    .WithWeight(Weight).WithPower(Power).Build()
+            };
+
+            Action validate = () => order.AddBreakRange(breakRange);
+
+            validate.Should().Throw<CubeWidthException>();
         }
     }
 }

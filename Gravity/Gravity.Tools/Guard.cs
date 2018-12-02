@@ -52,9 +52,26 @@ namespace Gravity.Tools
                 ThrowException();
         }
 
-        public static void Between(decimal value, decimal min, decimal max)
+        //public static void NotInRange(decimal value, decimal min, decimal max)
+        //{
+        //    if (value < min || value > max)
+        //        ThrowException();
+        //}
+        public static void NotInRange(double value, double min, double max)
         {
             if (value < min || value > max)
+                ThrowException();
+        }
+
+        //public static void InRange(decimal value, decimal min, decimal max)
+        //{
+        //    if (value > min || value < max)
+        //        ThrowException();
+        //}
+
+        public static void InRange(double value, double min, double max)
+        {
+            if (value > min || value < max)
                 ThrowException();
         }
 
