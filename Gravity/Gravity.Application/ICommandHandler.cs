@@ -7,6 +7,6 @@
 
     public interface ICommandHandler<in T> : ICommandHandler
     {
-        void Handle(T handle);
+        void Handle(T command);
     }
 }

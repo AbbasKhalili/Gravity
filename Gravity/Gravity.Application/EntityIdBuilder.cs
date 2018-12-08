@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Gravity.Domain
+namespace Gravity.Application
 {
-    public class EntityIdBuilder<T>
+    public class EntityIdBuilder<T>  : IEntityIdBuilder<T>
     {
         public long DbId { get; private set; }
 

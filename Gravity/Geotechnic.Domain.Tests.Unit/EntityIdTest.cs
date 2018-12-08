@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Gravity.Application;
 using Gravity.Domain;
 using Xunit;
 

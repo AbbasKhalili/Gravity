@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{8B9DD135-6972-427F-8425-9C4490AEA956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Domain", "Gravity.Domain\Gravity.Domain.csproj", "{ACE68B8F-BB6F-4968-B8CC-D273D1092784}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Domain", "Gravity.Domain\Gravity.Domain.csproj", "{ACE68B8F-BB6F-4968-B8CC-D273D1092784}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Geotechnic", "Geotechnic", "{E4B6044F-CE80-4AF7-BA56-5F66FEC52523}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeotechnicHost", "GeotechnicHost\GeotechnicHost.csproj", "{A28F53A1-7C2E-4AB9-B38A-D342277FA8CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeotechnicHost", "GeotechnicHost\GeotechnicHost.csproj", "{A28F53A1-7C2E-4AB9-B38A-D342277FA8CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{5DDB8309-1319-4948-B046-944A9773555D}"
 EndProject
@@ -19,35 +19,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interface", "Interface", "{B692B6DF-EB48-479A-8726-35B174E0ECE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Domain", "Geotechnic.Domain\Geotechnic.Domain.csproj", "{E1420C76-1935-4F0F-B4E9-5A977DC69A0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Domain", "Geotechnic.Domain\Geotechnic.Domain.csproj", "{E1420C76-1935-4F0F-B4E9-5A977DC69A0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Application", "Geotechnic.Application\Geotechnic.Application.csproj", "{7E34D639-A429-4939-85B3-3CC1D19149A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Application", "Geotechnic.Application\Geotechnic.Application.csproj", "{7E34D639-A429-4939-85B3-3CC1D19149A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Persistence", "Geotechnic.Persistence\Geotechnic.Persistence.csproj", "{61498F77-5B6D-45E1-A7F7-91FA0BA9D51B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Persistence", "Geotechnic.Persistence\Geotechnic.Persistence.csproj", "{61498F77-5B6D-45E1-A7F7-91FA0BA9D51B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Wireup", "Geotechnic.Wireup\Geotechnic.Wireup.csproj", "{B61AB5C9-E624-4DC4-9FFC-5E0D79577180}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Wireup", "Geotechnic.Wireup\Geotechnic.Wireup.csproj", "{B61AB5C9-E624-4DC4-9FFC-5E0D79577180}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Facade.Services", "Geotechnic.Facade.Services\Geotechnic.Facade.Services.csproj", "{67259E65-201E-4C64-AB67-37E00499D060}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Facade.Services", "Geotechnic.Facade.Services\Geotechnic.Facade.Services.csproj", "{67259E65-201E-4C64-AB67-37E00499D060}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Facade.Queries", "Geotechnic.Facade.Queries\Geotechnic.Facade.Queries.csproj", "{F0F75597-B545-4D44-99EB-2F7CB8ECD9E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Facade.Queries", "Geotechnic.Facade.Queries\Geotechnic.Facade.Queries.csproj", "{F0F75597-B545-4D44-99EB-2F7CB8ECD9E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Facade.Contracts", "Geotechnic.Facade.Contracts\Geotechnic.Facade.Contracts.csproj", "{BDDA9D4A-AE80-419C-B83D-A7CC3938FFBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Facade.Contracts", "Geotechnic.Facade.Contracts\Geotechnic.Facade.Contracts.csproj", "{BDDA9D4A-AE80-419C-B83D-A7CC3938FFBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Domain.Contracts", "Geotechnic.Domain.Contracts\Geotechnic.Domain.Contracts.csproj", "{591E1440-620A-42C0-A97A-1B8D469E2D72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Domain.Contracts", "Geotechnic.Domain.Contracts\Geotechnic.Domain.Contracts.csproj", "{591E1440-620A-42C0-A97A-1B8D469E2D72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.DomainEvents", "Geotechnic.DomainEvents\Geotechnic.DomainEvents.csproj", "{C67ABCAE-010E-47FA-A8F8-0C9B2546EC05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.DomainEvents", "Geotechnic.DomainEvents\Geotechnic.DomainEvents.csproj", "{C67ABCAE-010E-47FA-A8F8-0C9B2546EC05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Application", "Gravity.Application\Gravity.Application.csproj", "{56DD266B-66FA-4666-89BB-887213E16B5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Application", "Gravity.Application\Gravity.Application.csproj", "{56DD266B-66FA-4666-89BB-887213E16B5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Tools", "Gravity.Tools\Gravity.Tools.csproj", "{A7EB24A0-1233-4EAB-A7C7-B0943C9B6317}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Tools", "Gravity.Tools\Gravity.Tools.csproj", "{A7EB24A0-1233-4EAB-A7C7-B0943C9B6317}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Core", "Gravity.Core\Gravity.Core.csproj", "{D5BFE8E2-1DFB-460C-8CF9-2BE0665B24F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Core", "Gravity.Core\Gravity.Core.csproj", "{D5BFE8E2-1DFB-460C-8CF9-2BE0665B24F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.NHibernate", "Gravity.NHibernate\Gravity.NHibernate.csproj", "{3E098BB5-A55A-43E7-8729-470A5120CE95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.NHibernate", "Gravity.NHibernate\Gravity.NHibernate.csproj", "{3E098BB5-A55A-43E7-8729-470A5120CE95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Wireup", "Gravity.Wireup\Gravity.Wireup.csproj", "{A4B0B9F0-10C2-4130-B8BD-40E96F14849F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Wireup", "Gravity.Wireup\Gravity.Wireup.csproj", "{A4B0B9F0-10C2-4130-B8BD-40E96F14849F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Domain.Tests.Unit", "Geotechnic.Domain.Tests.Unit\Geotechnic.Domain.Tests.Unit.csproj", "{D9D90E41-6F49-4C24-B50C-9604C2DB93DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Domain.Tests.Unit", "Geotechnic.Domain.Tests.Unit\Geotechnic.Domain.Tests.Unit.csproj", "{D9D90E41-6F49-4C24-B50C-9604C2DB93DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Application.Tests.Unit", "Geotechnic.Application.Tests.Unit\Geotechnic.Application.Tests.Unit.csproj", "{7E4F338F-F28A-4C37-9005-3E58CCCA649D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{D9D90E41-6F49-4C24-B50C-9604C2DB93DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9D90E41-6F49-4C24-B50C-9604C2DB93DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9D90E41-6F49-4C24-B50C-9604C2DB93DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E4F338F-F28A-4C37-9005-3E58CCCA649D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E4F338F-F28A-4C37-9005-3E58CCCA649D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E4F338F-F28A-4C37-9005-3E58CCCA649D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E4F338F-F28A-4C37-9005-3E58CCCA649D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{3E098BB5-A55A-43E7-8729-470A5120CE95} = {8B9DD135-6972-427F-8425-9C4490AEA956}
 		{A4B0B9F0-10C2-4130-B8BD-40E96F14849F} = {8B9DD135-6972-427F-8425-9C4490AEA956}
 		{D9D90E41-6F49-4C24-B50C-9604C2DB93DB} = {5DDB8309-1319-4948-B046-944A9773555D}
+		{7E4F338F-F28A-4C37-9005-3E58CCCA649D} = {69EB0335-1A63-437B-B984-3DA77274691E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {751827FC-F16A-4EF4-82B2-8E94395EC47A}

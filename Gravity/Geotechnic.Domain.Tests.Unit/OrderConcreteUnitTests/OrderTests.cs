@@ -6,7 +6,7 @@ using Geotechnic.Domain.BreakTemplates;
 using Geotechnic.Domain.ExamplePlaces;
 using Geotechnic.Domain.OrderConcrete;
 using Geotechnic.Domain.OrderConcrete.Exceptions;
-using Gravity.Domain;
+using Gravity.Application;
 using Xunit;
 
 namespace Geotechnic.Domain.Tests.Unit.OrderConcreteUnitTests

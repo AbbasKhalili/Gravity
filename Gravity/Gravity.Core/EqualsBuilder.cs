@@ -71,7 +71,7 @@ namespace Gravity.Core
                     ReflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients);
                 }
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 // In this case, we tried to test a subclass vs. a superclass and
                 // the subclass has ivars or the ivars are transient and 
@@ -123,7 +123,7 @@ namespace Gravity.Core
                     {
                         throw new Exception("Unexpected TargetException", te);
                     }
-                    catch (NotSupportedException nse)
+                    catch (NotSupportedException)
                     {
                         // eat it!
                     }
