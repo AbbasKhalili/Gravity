@@ -4,7 +4,9 @@ using Gravity.Application;
 
 namespace Geotechnic.Application.CommandHandlers
 {
-    public class ExamplePlaceCommandHandler : ICommandHandler<ExamplePlaceCreate>
+    public class ExamplePlaceCommandHandler : ICommandHandler<ExamplePlaceCreate>,
+        ICommandHandler<ExamplePlaceUpdate>
+
     {
         private readonly IExamplePlaceRepository _examplePlaceRepository;
         private readonly IEntityIdBuilder<ExamplePlaceId> _idBuilder;
@@ -25,5 +27,11 @@ namespace Geotechnic.Application.CommandHandlers
             _examplePlaceRepository.Create(examplePlace);
         }
 
+        public void Handle(ExamplePlaceUpdate command)
+        {
+            var id = _idBuilder.WithId(command.Id).Build();
+            var model = _examplePlaceRepository.GetByIdAndBranchId(id, command.BranchId);
+            model.Update(command.Character, command.Title);
+        }
     }
 }
