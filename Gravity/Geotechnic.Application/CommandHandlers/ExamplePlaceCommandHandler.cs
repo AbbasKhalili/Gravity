@@ -1,19 +1,26 @@
-﻿using Geotechnic.Domain.ExamplePlaces;
+﻿using System.Linq;
+using Geotechnic.Application.Exceptions;
+using Geotechnic.Domain.ExamplePlaces;
+using Geotechnic.Domain.OrderConcrete;
 using Geotechnic.Facade.Contracts.ExamplePlace.Commands;
 using Gravity.Application;
+using Gravity.Tools;
 
 namespace Geotechnic.Application.CommandHandlers
 {
     public class ExamplePlaceCommandHandler : ICommandHandler<ExamplePlaceCreate>,
-        ICommandHandler<ExamplePlaceUpdate>
-
+                                              ICommandHandler<ExamplePlaceUpdate>,
+                                              ICommandHandler<ExamplePlaceDelete>
     {
+
         private readonly IExamplePlaceRepository _examplePlaceRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly IEntityIdBuilder<ExamplePlaceId> _idBuilder;
 
-        public ExamplePlaceCommandHandler(IExamplePlaceRepository examplePlaceRepository)
+        public ExamplePlaceCommandHandler(IExamplePlaceRepository examplePlaceRepository, IOrderRepository orderRepository)
         {
             _examplePlaceRepository = examplePlaceRepository;
+            _orderRepository = orderRepository;
             _idBuilder = new EntityIdBuilder<ExamplePlaceId>();
         }
 
@@ -32,6 +39,16 @@ namespace Geotechnic.Application.CommandHandlers
             var id = _idBuilder.WithId(command.Id).Build();
             var model = _examplePlaceRepository.GetByIdAndBranchId(id, command.BranchId);
             model.Update(command.Character, command.Title);
+        }
+        
+        public void Handle(ExamplePlaceDelete command)
+        {
+            var order = _orderRepository.GetAll().FirstOrDefault(x => x.BranchId == command.BranchId && x.ExamplePlace.DbId == command.Id);
+            Guard<ExamplePlaceUsedException>.AgainstNotNull(order);
+
+            var id = _idBuilder.WithId(command.Id).Build();
+            var model = _examplePlaceRepository.GetByIdAndBranchId(id, command.BranchId);
+            _examplePlaceRepository.Delete(model);
         }
     }
 }

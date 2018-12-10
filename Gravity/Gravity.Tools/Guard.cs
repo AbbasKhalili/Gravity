@@ -23,6 +23,12 @@ namespace Gravity.Tools
                 ThrowException();
         }
 
+        public static void AgainstNotNull<T>(T value) where T : class
+        {
+            if (value != null)
+                ThrowException();
+        }
+
         public static void IsTrue<T>(Func<T, bool> condition, T target)
         {
             if (!condition(target))
