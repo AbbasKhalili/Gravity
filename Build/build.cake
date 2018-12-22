@@ -1,4 +1,6 @@
 #tool "nuget:?package=xunit.runner.console"
+#tool "nuget:?package=JetBrains.dotCover.CommandLineTools"
+     
      
 var target = Argument("target", "Package");
 var configuration = Argument("Configuration", "Release");
@@ -60,6 +62,16 @@ Task("Run-Unit-tests")
     );
 });
 
+Task("Restore-Nuget")
+    .Does(()=> {
+     DotCoverCover(tool => {
+          tool.XUnit2("../Gravity/**/*.Tests.*.dll",new XUnit2Settings { ShadowCopy = false });
+  },
+  new FilePath("./result.dcvr"),
+  new DotCoverCoverSettings()
+    .WithFilter("+:App")
+    .WithFilter("-:App.Tests"));
+});
 
 Task("Package")
     .DoesForEach(
