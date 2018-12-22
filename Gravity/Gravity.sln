@@ -49,7 +49,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Wireup", "Gravity.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Domain.Tests.Unit", "Geotechnic.Domain.Tests.Unit\Geotechnic.Domain.Tests.Unit.csproj", "{D9D90E41-6F49-4C24-B50C-9604C2DB93DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Application.Tests.Unit", "Geotechnic.Application.Tests.Unit\Geotechnic.Application.Tests.Unit.csproj", "{7E4F338F-F28A-4C37-9005-3E58CCCA649D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Application.Tests.Unit", "Geotechnic.Application.Tests.Unit\Geotechnic.Application.Tests.Unit.csproj", "{7E4F338F-F28A-4C37-9005-3E58CCCA649D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestingFramework", "TestingFramework", "{6482839B-47C4-45B7-98CC-C2335C1CA2E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravitest.NHibernate", "Gravitest.NHibernate\Gravitest.NHibernate.csproj", "{819CAC0E-1D03-4954-9532-80E54849DDCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravitest.Tools", "Gravitest.Tools\Gravitest.Tools.csproj", "{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +135,14 @@ Global
 		{7E4F338F-F28A-4C37-9005-3E58CCCA649D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E4F338F-F28A-4C37-9005-3E58CCCA649D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E4F338F-F28A-4C37-9005-3E58CCCA649D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{819CAC0E-1D03-4954-9532-80E54849DDCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819CAC0E-1D03-4954-9532-80E54849DDCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819CAC0E-1D03-4954-9532-80E54849DDCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819CAC0E-1D03-4954-9532-80E54849DDCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -156,6 +170,8 @@ Global
 		{A4B0B9F0-10C2-4130-B8BD-40E96F14849F} = {8B9DD135-6972-427F-8425-9C4490AEA956}
 		{D9D90E41-6F49-4C24-B50C-9604C2DB93DB} = {5DDB8309-1319-4948-B046-944A9773555D}
 		{7E4F338F-F28A-4C37-9005-3E58CCCA649D} = {69EB0335-1A63-437B-B984-3DA77274691E}
+		{819CAC0E-1D03-4954-9532-80E54849DDCD} = {6482839B-47C4-45B7-98CC-C2335C1CA2E8}
+		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A} = {6482839B-47C4-45B7-98CC-C2335C1CA2E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {751827FC-F16A-4EF4-82B2-8E94395EC47A}

@@ -37,7 +37,10 @@ namespace Geotechnic.Application.CommandHandlers
         public void Handle(ExamplePlaceUpdate command)
         {
             var id = _idBuilder.WithId(command.Id).Build();
-            var model = _examplePlaceRepository.GetByIdAndBranchId(id, command.BranchId);
+            var model = _examplePlaceRepository.Get(id);
+
+            Guard<ExamplePlaceNotFoundException>.AgainstNull(model);
+
             model.Update(command.Character, command.Title);
         }
         
@@ -47,7 +50,10 @@ namespace Geotechnic.Application.CommandHandlers
             Guard<ExamplePlaceUsedException>.AgainstNotNull(order);
 
             var id = _idBuilder.WithId(command.Id).Build();
-            var model = _examplePlaceRepository.GetByIdAndBranchId(id, command.BranchId);
+            var model = _examplePlaceRepository.Get(id);
+
+            Guard<ExamplePlaceNotFoundException>.AgainstNull(model);
+
             _examplePlaceRepository.Delete(model);
         }
     }

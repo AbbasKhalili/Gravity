@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="fluentassertions" Version="5.5.3" />
+    <PackageReference Include="FluentAssertions" Version="5.5.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -21,6 +21,8 @@
     <ProjectReference Include="..\Geotechnic.Application\Geotechnic.Application.csproj" />
     <ProjectReference Include="..\Geotechnic.Domain\Geotechnic.Domain.csproj" />
     <ProjectReference Include="..\Geotechnic.Facade.Contracts\Geotechnic.Facade.Contracts.csproj" />
+    <ProjectReference Include="..\Geotechnic.Persistence\Geotechnic.Persistence.csproj" />
+    <ProjectReference Include="..\Gravitest.NHibernate\Gravitest.NHibernate.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace Geotechnic.Persistence.Mappings
     {
         public OrderMapping()
         {
-            Table("OrderConcretes");
+            Table("Orders");
             Lazy(false);
 
             ComponentAsId(a => a.Id, map => map.Property(a => a.DbId, a => a.Column("Id")));
@@ -50,8 +50,8 @@ namespace Geotechnic.Persistence.Mappings
             IdBag(a => a.Additives, map =>
             {
                 //map.Access(Accessor.Property);
-                map.Table("OrderConcretesAdditives");
-                map.Key(a => a.Column("OrderConcreteId"));
+                map.Table("OrderAdditives");
+                map.Key(a => a.Column("OrderId"));
                 map.Id(a =>
                 {
                     a.Column("Id");

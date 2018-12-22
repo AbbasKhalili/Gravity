@@ -5,7 +5,7 @@ using FluentAssertions.Execution;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 
-namespace Geotechnic.Application.Tests.Unit
+namespace Gravitest.Tools
 {
     public static class Verify
     {

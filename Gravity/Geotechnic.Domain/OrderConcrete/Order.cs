@@ -29,6 +29,9 @@ namespace Geotechnic.Domain.OrderConcrete
         public BreakTemplateId BreakTemplateId { get; protected set; }
         protected List<Break> Breaks { get; set; }
 
+
+        protected Order() { }
+
         public Order(long branchId, OrderId id, OrderModel order)
         {
             Guard<ExampleNumberException>.SmallerThan(order.ExampleNumber, 1);

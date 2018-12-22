@@ -1,34 +1,33 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using Geotechnic.Application.CommandHandlers;
 using Geotechnic.Application.Exceptions;
-using Geotechnic.Domain.Additives;
-using Geotechnic.Domain.BreakTemplates;
 using Geotechnic.Domain.ExamplePlaces;
 using Geotechnic.Domain.OrderConcrete;
 using Geotechnic.Facade.Contracts.ExamplePlace.Commands;
+using Geotechnic.Persistence.Mappings;
+using Geotechnic.Persistence.Repositories;
+using Gravitest.NHibernate;
 using Gravity.Application;
-using NSubstitute;
-using NSubstitute.Core;
+using Gravity.NHibernate;
 using Xunit;
 
 namespace Geotechnic.Application.Tests.Unit
 {
-    public class ExamplePlaceCommandHandlerTests
+    public class ExamplePlaceCommandHandlerTests : InMemoryDatabase
     {
-        private readonly EntityIdBuilder<ExamplePlaceId> _examplePlaceBuilder;
-        private readonly EntityIdBuilder<OrderId> _orderIdBuilder;
-        private readonly EntityIdBuilder<BreakTemplateId> _breakTemplateIdBuilder;
-        private readonly OrderBuilder _orderBuilder;
+        private readonly EntityIdBuilder<ExamplePlaceId> _examplePlaceIdBuilder;
+        private readonly ISequenceHelper _sequenceHelper;
+        private readonly IExamplePlaceRepository _placeRepository;
+        private readonly ExamplePlaceCommandHandler _commandHandler;
 
-        public ExamplePlaceCommandHandlerTests()
+        public ExamplePlaceCommandHandlerTests(): base(typeof(ExamplePlaceMapping).Assembly)
         {
-            _examplePlaceBuilder = new EntityIdBuilder<ExamplePlaceId>();
-            _orderIdBuilder = new EntityIdBuilder<OrderId>();
-            _orderBuilder = new OrderBuilder();
-            _breakTemplateIdBuilder = new EntityIdBuilder<BreakTemplateId>();
+            _examplePlaceIdBuilder = new EntityIdBuilder<ExamplePlaceId>();
+            _sequenceHelper = new FakeSequenceHelper();
+            _placeRepository = new ExamplePlaceRepository(_sequenceHelper, Session);
+            IOrderRepository orderRepository = new OrderRepository(Session, _sequenceHelper);
+            _commandHandler = new ExamplePlaceCommandHandler(_placeRepository, orderRepository);
         }
 
 
@@ -37,107 +36,66 @@ namespace Geotechnic.Application.Tests.Unit
         private const string Character = "C";
         private const string Title = "Column";
 
-
-
-        private readonly DateTime _exampleDate = DateTime.Now;
-        private const long ExampleNumber = 153;
-        private const long ProjectId = 553;
-        private ExamplePlaceId ExamplePlace => _examplePlaceBuilder.WithId(1).Build();
-        private BreakTemplateId BreakTempId => _breakTemplateIdBuilder.WithId(5).Build();
-
-
-
+        
         [Fact]
         public void HandleCreate_should_add_ExamplePlace_to_repository()
         {
-            var command = new ExamplePlaceCreate { BranchId = BranchId, Character = Character, Title=Title};
-            var id = _examplePlaceBuilder.WithId(Id).Build();
-            var expectedExamplePlace = new ExamplePlace(BranchId, id, Character, Title);
-            var repository = Substitute.For<IExamplePlaceRepository>();
-            var commandHandler = new ExamplePlaceCommandHandler(repository,null);
+            InsertExamplePlace();
 
-            commandHandler.Handle(command);
-
-            repository.Received(1)
-                .Create(Verify.That<ExamplePlace>(
-                    a => a.Should().BeEquivalentTo(expectedExamplePlace,
-                        z => z.Excluding(b => b.Id).ComparingByMembers<ExamplePlace>())));
+            var longId = _sequenceHelper.Next(""); 
+            var iid = _examplePlaceIdBuilder.WithId(longId).Build();
+            var expectedExamplePlace = _placeRepository.Get(iid);
+            expectedExamplePlace.Id.Should().BeEquivalentTo(iid);
+            expectedExamplePlace.BranchId.Should().Be(BranchId);
+            expectedExamplePlace.Title.Should().Be(Title);
+            expectedExamplePlace.Character.Should().Be(Character);
         }
 
         [Fact]
         public void HandleUpdate_should_modify_ExamplePlace_in_repository()
         {
-            var id = _examplePlaceBuilder.WithId(Id).Build();
-            var returnValue = new ExamplePlace(BranchId, id, Character, Title);
-            var repository = Substitute.For<IExamplePlaceRepository>();
-            repository.GetByIdAndBranchId(id, BranchId).Returns(returnValue);
-            
+            InsertExamplePlace();
+
             var character = "W";
             var title = "Wall";
             var command = new ExamplePlaceUpdate { BranchId = BranchId, Id = Id, Character = character, Title = title };
-            var commandHandler = new ExamplePlaceCommandHandler(repository,null);
-            commandHandler.Handle(command);
+            _commandHandler.Handle(command);
 
-            returnValue.Character.Should().Be(character);
-            returnValue.Title.Should().Be(title);
+            var longId = _sequenceHelper.Next("");
+            var iid = _examplePlaceIdBuilder.WithId(longId).Build();
+            var expectedExamplePlace = _placeRepository.Get(iid);
+            expectedExamplePlace.Id.Should().BeEquivalentTo(iid);
+            expectedExamplePlace.BranchId.Should().Be(BranchId);
+            expectedExamplePlace.Title.Should().Be(title);
+            expectedExamplePlace.Character.Should().Be(character);
         }
 
         [Fact]
         public void HandleDelete_should_remove_ExamplePlace_from_repository()
         {
+            InsertExamplePlace();
+            
             var command = new ExamplePlaceDelete { BranchId = BranchId, Id = Id };
-            var id = _examplePlaceBuilder.WithId(Id).Build();
-            var expectedExamplePlace = new ExamplePlace(BranchId, id, Character, Title);
-            
-            var returnValue = new ExamplePlace(BranchId, id, Character, Title);
-            var repository = Substitute.For<IExamplePlaceRepository>();
-            repository.GetByIdAndBranchId(id, BranchId).Returns(returnValue);
-            
-            var orderRepository = Substitute.For<IOrderRepository>();
+            _commandHandler.Handle(command);
 
-            var commandHandler = new ExamplePlaceCommandHandler(repository, orderRepository);
-            commandHandler.Handle(command);
+            var id = _examplePlaceIdBuilder.WithId(Id).Build();
+            var expectedExamplePlace = _placeRepository.Get(id);
+            expectedExamplePlace.Should().BeNull();
+        }
 
-            repository.Received(1)
-                .Delete(Verify.That<ExamplePlace>(
-                    a => a.Should().BeEquivalentTo(expectedExamplePlace)));
+        private void InsertExamplePlace()
+        {
+            var createCommand = new ExamplePlaceCreate { BranchId = BranchId, Character = Character, Title = Title };
+            _commandHandler.Handle(createCommand);
         }
 
         [Fact]
-        public void HandleDelete_should_throw_when_ExamplePlace_is_used_in_order()
+        public void HandleDelete_should_throw_when_ExamplePlace_not_found()
         {
             var command = new ExamplePlaceDelete { BranchId = BranchId, Id = Id };
+            Action expectedException = () => _commandHandler.Handle(command);
 
-            var id = _orderIdBuilder.WithId(Id).Build();
-            var returnValue = new List<Order>()
-            {
-                new Order(BranchId, id, CreateValidOrderModel())
-            }.AsQueryable();
-                              
-
-            var orderQueryable = Substitute.For<IQueryable<Order>>();
-            //orderQueryable.Provider.Returns(returnValue.Provider);
-            //orderQueryable.Expression.Returns(returnValue.Expression);
-            //orderQueryable.ElementType.Returns(returnValue.ElementType);
-            orderQueryable.GetEnumerator().Returns(returnValue.GetEnumerator());
-
-            var orderRepository = Substitute.For<IOrderRepository>();
-            orderRepository.GetAll().Returns(returnValue);
-
-            var repository = Substitute.For<IExamplePlaceRepository>();
-
-            var commandHandler = new ExamplePlaceCommandHandler(repository, orderRepository);
-            Action expected = () => commandHandler.Handle(command);
-
-            expected.Should().Throw<ExamplePlaceUsedException>();
-        }
-
-        private OrderModel CreateValidOrderModel()
-        {
-            return _orderBuilder.WithExampleNumber(ExampleNumber)
-                .WithProject(ProjectId).WithExampleDate(_exampleDate)
-                .WithExamplePlace(ExamplePlace, "").WithCutie(0, CementTypes.Type2)
-                .With(BreakTempId).Build();
+            expectedException.Should().Throw<ExamplePlaceNotFoundException>();
         }
     }
 }
