@@ -62,7 +62,7 @@ Task("Run-Unit-tests")
     );
 });
 
-Task("Restore-Nuget")
+Task("Dot-Cover")
     .Does(()=> {
      DotCoverCover(tool => {
           tool.XUnit2("../Gravity/**/*.Tests.*.dll",new XUnit2Settings { ShadowCopy = false });
@@ -94,6 +94,7 @@ Task("Default")
     .IsDependentOn("Restore-Nuget")
     .IsDependentOn("Build")
     .IsDependentOn("Run-Unit-Tests")
+    .IsDependentOn("Dot-Cover")
     .IsDependentOn("Package");
 
 RunTarget("Default");
