@@ -64,12 +64,13 @@ Task("Run-Unit-tests")
 
 Task("Dot-Cover")
     .Does(()=> {
-     DotCoverCover(tool => {
-          tool.XUnit2("../Gravity/**/*.Tests.Unit.dll",new XUnit2Settings { ShadowCopy = false });
-  },
-  new FilePath("./result.dcvr"),
-  new DotCoverCoverSettings());
+  //   DotCoverCover(tool => {
+    //      tool.XUnit2("../Gravity/**/*.Tests.Unit.dll",new XUnit2Settings { ShadowCopy = false });
+ // },
+//  new FilePath("./result.dcvr"),
+ // new DotCoverCoverSettings());
 });
+
 
 Task("Package")
     .DoesForEach(
