@@ -2,7 +2,8 @@
 
 namespace Geotechnic.Application.Exceptions
 {
-    public class ExamplePlaceUsedException : InternalException
+    public class BranchNotFoundException : InternalException
     {
+
     }
 }

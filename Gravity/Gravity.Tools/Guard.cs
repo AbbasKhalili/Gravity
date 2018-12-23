@@ -5,6 +5,14 @@ namespace Gravity.Tools
 {
     public static class Guard<TE> where TE : InternalException ,new()
     {
+        public static void AgainstNullOrEmpty(string value) 
+        {
+            if (string.IsNullOrEmpty(value))
+                ThrowException();
+            if (value != null && value.Trim() == "")
+                ThrowException();
+        }
+
         public static void AgainstNull<T>(T value) where T : class
         {
             if (value == null)

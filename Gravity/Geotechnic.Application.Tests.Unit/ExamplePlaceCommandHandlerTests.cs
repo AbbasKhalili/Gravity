@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using FluentAssertions;
 using Geotechnic.Application.CommandHandlers;
 using Geotechnic.Application.Exceptions;
