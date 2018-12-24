@@ -11,10 +11,10 @@ namespace Gravitest.NHibernate
 {
     public class InMemoryDatabase : IDisposable
     {
-        private static Configuration _configuration;
-        private static ISessionFactory _sessionFactory;
+        private readonly Configuration _configuration;
+        private readonly ISessionFactory _sessionFactory;
         protected ISession Session;
-        private static readonly ModelMapper ModelMapper = new ModelMapper();
+        private readonly ModelMapper _modelMapper = new ModelMapper();
 
         public InMemoryDatabase(Assembly assembly)
         {
@@ -30,9 +30,9 @@ namespace Gravitest.NHibernate
                     cfg.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
                     //cfg.IsolationLevel = IsolationLevel.ReadCommitted;
                 });
-                ModelMapper.AddMappings(assembly.GetExportedTypes());
+                _modelMapper.AddMappings(assembly.GetExportedTypes());
 
-                var hbmMapping = ModelMapper.CompileMappingForAllExplicitlyAddedEntities();
+                var hbmMapping = _modelMapper.CompileMappingForAllExplicitlyAddedEntities();
                 _configuration.AddDeserializedMapping(hbmMapping, "geo");
 
                 _sessionFactory = _configuration.BuildSessionFactory();
