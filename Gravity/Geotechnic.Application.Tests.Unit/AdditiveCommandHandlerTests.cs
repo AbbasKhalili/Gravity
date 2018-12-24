@@ -58,15 +58,53 @@ namespace Geotechnic.Application.Tests.Unit
             expected.Should().Throw<BranchNotFoundException>();
         }
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData(null)]
-        public void HandleCreate_should_throw_when_Title_is_not_valid(string title)
+        [Fact]
+        public void HandleUpdate_should_modify_ExamplePlace_in_repository()
         {
-            var createCommand = new AdditiveCreate { BranchId = BranchId, Title = title };
-            Action expected = () => _commandHandler.Handle(createCommand);
-            expected.Should().Throw<AdditiveTitleRequiredException>();
+            InsertAdditive();
+
+            var title = "Z90";
+            var command = new AdditiveUpdate { BranchId = BranchId, Id = Id, Title = title };
+            _commandHandler.Handle(command);
+
+            var longId = _sequenceHelper.Next("");
+            var iid = _entityIdBuilder.WithId(longId).Build();
+            var expectedExamplePlace = _additiveRepository.Get(iid);
+            expectedExamplePlace.Id.Should().BeEquivalentTo(iid);
+            expectedExamplePlace.BranchId.Should().Be(BranchId);
+            expectedExamplePlace.Title.Should().Be(title);
+        }
+
+        [Fact]
+        public void HandleUpdate_should_throw_when_Additive_not_found()
+        {
+            var title = "Z90";
+            var command = new AdditiveUpdate { BranchId = BranchId, Id = Id, Title = title };
+            Action expected = () =>_commandHandler.Handle(command);
+
+            expected.Should().Throw<AdditiveNotFoundException>();
+        }
+
+        [Fact]
+        public void HandleDelete_should_remove_ExamplePlace_from_repository()
+        {
+            InsertAdditive();
+
+            var command = new AdditiveDelete { BranchId = BranchId, Id = Id };
+            _commandHandler.Handle(command);
+
+            var id = _entityIdBuilder.WithId(Id).Build();
+            var expectedExamplePlace = _additiveRepository.Get(id);
+            expectedExamplePlace.Should().BeNull();
+        }
+
+        [Fact]
+        public void HandleDelete_should_throw_when_ExamplePlace_not_found()
+        {
+            var command = new AdditiveDelete { BranchId = BranchId, Id = Id };
+            Action expectedException = () => _commandHandler.Handle(command);
+
+            expectedException.Should().Throw<AdditiveNotFoundException>();
         }
 
         private void InsertAdditive()

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Geotechnic.Domain.Additives;
 using Xunit;
 
@@ -34,6 +35,16 @@ namespace Geotechnic.Domain.Tests.Unit.AdditivesUnitTests
             var expectedTitle = "Lubricant X2300 green";
             additive.Update(expectedTitle);
             additive.Title.Should().Be(expectedTitle);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Constructor_and_Update_should_throw_when_Title_is_not_valid(string title)
+        {
+            Action expected = () => _builder.WithTitle(title).Build();
+            expected.Should().Throw<AdditiveTitleRequiredException>();
         }
     }
 }

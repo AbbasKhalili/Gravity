@@ -1,4 +1,5 @@
 ﻿using Gravity.Domain;
+using Gravity.Tools;
 
 namespace Geotechnic.Domain.Additives
 {
@@ -23,6 +24,7 @@ namespace Geotechnic.Domain.Additives
 
         private void SetProperties(string title)
         {
+            Guard<AdditiveTitleRequiredException>.AgainstNullOrEmpty(title);
             Title = title;
         }
     }
