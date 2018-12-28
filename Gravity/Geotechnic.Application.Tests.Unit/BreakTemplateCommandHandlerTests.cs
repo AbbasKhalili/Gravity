@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using FluentAssertions;
 using Geotechnic.Application.CommandHandlers;
 using Geotechnic.Application.Exceptions;
 using Geotechnic.Domain.BreakTemplates;
-using Geotechnic.Domain.ExamplePlaces;
 using Geotechnic.Domain.OrderConcrete;
 using Geotechnic.Facade.Contracts.BreakTemplate.Commands;
-using Geotechnic.Facade.Contracts.ExamplePlace.Commands;
 using Geotechnic.Persistence.Mappings;
 using Geotechnic.Persistence.Repositories;
 using Gravitest.NHibernate;
@@ -61,6 +60,7 @@ namespace Geotechnic.Application.Tests.Unit
             expectedBreakTemplate.MoldCount.Should().Be(MoldCount);
             expectedBreakTemplate.BreakTemplateMolds.Should().BeEquivalentTo(moldList);
         }
+
         [Fact]
         public void HandleUpdate_should_modify_BreakTemplate_in_repository()
         {
