@@ -1,10 +1,12 @@
 ﻿using System.Linq;
+using Geotechnic.Application.Exceptions;
 using Geotechnic.Domain.Additives;
 using Geotechnic.Domain.BreakTemplates;
 using Geotechnic.Domain.ExamplePlaces;
 using Geotechnic.Domain.OrderConcrete;
 using Geotechnic.Facade.Contracts.Order.Commands;
 using Gravity.Application;
+using Gravity.Tools;
 using Gravity.Tools.DateTools;
 
 namespace Geotechnic.Application.CommandHandlers
@@ -61,12 +63,41 @@ namespace Geotechnic.Application.CommandHandlers
 
         public void Handle(OrderUpdate command)
         {
-            throw new System.NotImplementedException();
+            var id = _idBuilder.WithId(command.Id).Build();
+            var model = _repository.Get(id);
+            Guard<OrderNotFoundException>.AgainstNull(model);
+
+            var orderModel = new OrderModel()
+            {
+                Axis = command.Axis,
+                CementType = (CementTypes) command.CementType,
+                ConcreteSeller = command.ConcreteSeller,
+                ConcreteTemperature = command.ConcreteTemperature,
+                Cutie = command.Cutie,
+                EnvironmentTemperature = command.EnvironmentTemperature,
+                ExampleDate = command.ExampleDate.ToGregorianDate(),
+                ExampleNumber = command.ExampleNumber,
+                ExamplePlace = _examplePlaceIdBuilder.WithId(command.ExamplePlaceId).Build(),
+                ExamplePlaceDesc = command.ExamplePlaceDesc,
+                Fc = command.Fc,
+                ProjectId = command.ProjectId,
+                Slamp = command.Slamp,
+                Volume = command.Volume,
+                BreakTemplateId = _breakTemplateIdBuilder.WithId(command.BreakTemplateId).Build(),
+                Additives = command.AdditivesId.Select(a => new AdditiveId(a)).ToList(),
+            };
+
+            model.Update(orderModel);
         }
 
         public void Handle(OrderDelete command)
         {
-            throw new System.NotImplementedException();
+            var id = _idBuilder.WithId(command.Id).Build();
+            var model = _repository.Get(id);
+
+            Guard<OrderNotFoundException>.AgainstNull(model);
+            Guard<OrderHasBreakException>.AgainstNotNull(model.GetAllBreak());
+            _repository.Delete(model);
         }
 
         public void Handle(BreakUpdate command)

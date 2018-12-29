@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Geotechnic.Application.CommandHandlers;
+using Geotechnic.Application.Exceptions;
 using Geotechnic.Domain.Additives;
 using Geotechnic.Domain.BreakTemplates;
 using Geotechnic.Domain.ExamplePlaces;
@@ -21,7 +22,6 @@ namespace Geotechnic.Application.Tests.Unit
     public class OrderCommandHandlerTests : InMemoryDatabase
     {
         private readonly EntityIdBuilder<OrderId> _idBuilder;
-        private readonly EntityIdBuilder<AdditiveId> _additiveIdBuilder;
         private readonly EntityIdBuilder<BreakTemplateId> _breakTemplateIdBuilder;
         private readonly EntityIdBuilder<ExamplePlaceId> _examplePlaceBuilder;
         
@@ -32,7 +32,6 @@ namespace Geotechnic.Application.Tests.Unit
         public OrderCommandHandlerTests() : base(typeof(OrderMapping).Assembly)
         {
             _idBuilder = new EntityIdBuilder<OrderId>();
-            _additiveIdBuilder = new EntityIdBuilder<AdditiveId>();
             _breakTemplateIdBuilder = new EntityIdBuilder<BreakTemplateId>();
             _examplePlaceBuilder = new EntityIdBuilder<ExamplePlaceId>();
 
@@ -73,7 +72,7 @@ namespace Geotechnic.Application.Tests.Unit
 
 
         [Fact]
-        public void HandleCreate_should_add_BreakTemplate_to_repository()
+        public void HandleCreate_should_add_Order_to_repository()
         {
             InsertOrder();
 
@@ -102,6 +101,87 @@ namespace Geotechnic.Application.Tests.Unit
             expectedOrder.Volume.Should().Be(Volume);
         }
 
+        [Fact]
+        public void HandleUpdate_should_modify_Order_in_repository()
+        {
+            InsertOrder();
+
+            var axis = "W2-R4";
+            var cementType = 4;
+            var concreteSeller = "Abtos";
+            var concreteTemp = 14;
+            var envTemp = 18;
+            var cutie = 199;
+            var exampleDate = "1397/05/05";
+            var exampleDateConverted = exampleDate.ToGregorianDate();
+            var examplePlaceId = 3;
+            var examplePlaceIdObject = _examplePlaceBuilder.WithId(examplePlaceId).Build();
+            var examplePlaceDesc = "Cutter Wall 3";
+            var fc = 230;
+            var projectId = 147;
+            var slamp = 9.9;
+            var volume = 130;
+            var breakTemplateid = 5;
+            var breakTemplateId = _breakTemplateIdBuilder.WithId(breakTemplateid).Build();
+            var additivesId = new List<int>(){5,8};
+            var additivesIds = additivesId.Select(a => new AdditiveId(a)).ToList();
+            var command = new OrderUpdate { BranchId = BranchId, Id = Id,
+                Axis = axis,
+                CementType = cementType,
+                ConcreteSeller = concreteSeller,
+                ConcreteTemperature = concreteTemp,
+                Cutie = cutie,
+                EnvironmentTemperature = envTemp,
+                ExampleDate = exampleDate,
+                ExampleNumber = ExampleNumber,
+                ExamplePlaceId = examplePlaceId,
+                ExamplePlaceDesc = examplePlaceDesc,
+                Fc = fc,
+                ProjectId = projectId,
+                Slamp = slamp,
+                Volume = volume,
+                BreakTemplateId = breakTemplateid,
+                AdditivesId = additivesId,
+            };
+            _commandHandler.Handle(command);
+
+            var longId = _sequenceHelper.Next("");
+            var iid = _idBuilder.WithId(longId).Build();
+            
+            var expectedOrder = _repository.Get(iid);
+            expectedOrder.Id.Should().BeEquivalentTo(iid);
+            expectedOrder.BranchId.Should().Be(BranchId);
+            expectedOrder.BreakTemplateId.Should().BeEquivalentTo(breakTemplateId);
+            expectedOrder.Additives.Should().BeEquivalentTo(additivesIds);
+            expectedOrder.Axis.Should().Be(axis);
+            expectedOrder.CementType.Should().Be(cementType);
+            expectedOrder.ConcreteSeller.Should().Be(concreteSeller);
+            expectedOrder.ConcreteTemperature.Should().Be(concreteTemp);
+            expectedOrder.Cutie.Should().Be(cutie);
+            expectedOrder.EnvironmentTemperature.Should().Be(envTemp);
+            expectedOrder.ExampleDate.Should().Be(exampleDateConverted);
+            expectedOrder.ExampleNumber.Should().Be(ExampleNumber);
+            expectedOrder.ExamplePlace.Should().Be(examplePlaceIdObject);
+            expectedOrder.ExamplePlaceDesc.Should().Be(examplePlaceDesc);
+            expectedOrder.Fc.Should().Be(fc);
+            expectedOrder.ProjectId.Should().Be(projectId);
+            expectedOrder.Slamp.Should().Be(slamp);
+            expectedOrder.Volume.Should().Be(volume);
+        }
+
+        [Fact]
+        public void HandleDelete_should_remove_Order_from_repository()
+        {
+            InsertOrder();
+
+            var command = new OrderDelete { BranchId = BranchId, Id = Id };
+            _commandHandler.Handle(command);
+
+            var id = _idBuilder.WithId(Id).Build();
+            var expectedBreakTemplate = _repository.Get(id);
+            expectedBreakTemplate.Should().BeNull();
+        }
+
         private void InsertOrder()
         {
             var createCommand = new OrderCreate
@@ -125,6 +205,15 @@ namespace Geotechnic.Application.Tests.Unit
                     AdditivesId = _additivesId,
                 };
             _commandHandler.Handle(createCommand);
+        }
+
+        [Fact]
+        public void HandleDelete_should_throw_when_Order_not_found()
+        {
+            var command = new OrderDelete { BranchId = BranchId, Id = Id };
+            Action expectedException = () => _commandHandler.Handle(command);
+
+            expectedException.Should().Throw<OrderNotFoundException>();
         }
     }
 }
