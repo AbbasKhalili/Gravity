@@ -2,7 +2,7 @@
 using System.Reflection;
 using Gravity.Tools.MathTools;
 
-namespace Gravity.Core
+namespace Gravity.Tools
 {
     public class EqualsBuilder
     {

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.5.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Geotechnic.Application\Geotechnic.Application.csproj" />
+    <ProjectReference Include="..\Geotechnic.Facade.Contracts\Geotechnic.Facade.Contracts.csproj" />
+    <ProjectReference Include="..\Geotechnic.Facade.Services\Geotechnic.Facade.Services.csproj" />
+    <ProjectReference Include="..\Geotechnic.Persistence\Geotechnic.Persistence.csproj" />
+    <ProjectReference Include="..\Gravitest.NHibernate\Gravitest.NHibernate.csproj" />
+    <ProjectReference Include="..\Gravity.Application\Gravity.Application.csproj" />
+    <ProjectReference Include="..\Gravity.Core\Gravity.Core.csproj" />
+  </ItemGroup>
+
+</Project>

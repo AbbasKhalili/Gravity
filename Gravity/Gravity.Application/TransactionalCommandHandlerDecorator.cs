@@ -11,7 +11,7 @@ namespace Gravity.Application
             _unitofwork = unitofwork;
             _commandHandler = commandHandler;
         }
-
+        
         public void Handle(T handle)
         {
             try

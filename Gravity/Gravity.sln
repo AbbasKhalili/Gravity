@@ -53,9 +53,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geotechnic.Application.Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestingFramework", "TestingFramework", "{6482839B-47C4-45B7-98CC-C2335C1CA2E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravitest.NHibernate", "Gravitest.NHibernate\Gravitest.NHibernate.csproj", "{819CAC0E-1D03-4954-9532-80E54849DDCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravitest.NHibernate", "Gravitest.NHibernate\Gravitest.NHibernate.csproj", "{819CAC0E-1D03-4954-9532-80E54849DDCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravitest.Tools", "Gravitest.Tools\Gravitest.Tools.csproj", "{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravitest.Tools", "Gravitest.Tools\Gravitest.Tools.csproj", "{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geotechnic.Facade.Services.Tests.Unit", "Geotechnic.Facade.Services.Tests.Unit\Geotechnic.Facade.Services.Tests.Unit.csproj", "{1594F19A-CE78-4699-B7C6-6BFE6728D3AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +145,10 @@ Global
 		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1594F19A-CE78-4699-B7C6-6BFE6728D3AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1594F19A-CE78-4699-B7C6-6BFE6728D3AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1594F19A-CE78-4699-B7C6-6BFE6728D3AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1594F19A-CE78-4699-B7C6-6BFE6728D3AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +178,7 @@ Global
 		{7E4F338F-F28A-4C37-9005-3E58CCCA649D} = {69EB0335-1A63-437B-B984-3DA77274691E}
 		{819CAC0E-1D03-4954-9532-80E54849DDCD} = {6482839B-47C4-45B7-98CC-C2335C1CA2E8}
 		{6D5FE1AD-03F7-4D6B-8422-1D95D2A4B28A} = {6482839B-47C4-45B7-98CC-C2335C1CA2E8}
+		{1594F19A-CE78-4699-B7C6-6BFE6728D3AD} = {B692B6DF-EB48-479A-8726-35B174E0ECE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {751827FC-F16A-4EF4-82B2-8E94395EC47A}

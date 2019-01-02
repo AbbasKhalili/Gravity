@@ -8,6 +8,7 @@
     <ProjectReference Include="..\Geotechnic.Domain\Geotechnic.Domain.csproj" />
     <ProjectReference Include="..\Geotechnic.Facade.Contracts\Geotechnic.Facade.Contracts.csproj" />
     <ProjectReference Include="..\Gravity.Application\Gravity.Application.csproj" />
+    <ProjectReference Include="..\Gravity.Tools\Gravity.Tools.csproj" />
   </ItemGroup>
 
 </Project>

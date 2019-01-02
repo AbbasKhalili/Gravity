@@ -3,10 +3,10 @@ using NHibernate;
 
 namespace Gravity.NHibernate
 {
-    public class NhUnitofwork : IUnitofwork
+    public class NhUnitOfWork : IUnitofwork
     {
         private readonly ISession _session;
-        public NhUnitofwork(ISession session)
+        public NhUnitOfWork(ISession session)
         {
             _session = session;
         }
