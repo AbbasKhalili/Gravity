@@ -8,7 +8,7 @@ using Gravitest.NHibernate;
 using Gravity.Application;
 using Gravity.NHibernate;
 
-namespace Geotechnic.Facade.Services.Tests.Unit
+namespace Geotechnic.Facade.Services.Tests.Unit.BreakTemplateFacade
 {
     public class InMemoryBreakTemplateFacadeService : InMemoryDatabase
     {

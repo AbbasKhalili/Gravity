@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using FluentAssertions;
-using Geotechnic.Domain.Additives;
 using Geotechnic.Domain.BreakTemplates;
-using Geotechnic.Facade.Contracts.Additives.Commands;
 using Geotechnic.Facade.Contracts.BreakTemplate.Commands;
 using Gravity.Application;
 using Xunit;
 
-namespace Geotechnic.Facade.Services.Tests.Unit
+namespace Geotechnic.Facade.Services.Tests.Unit.BreakTemplateFacade
 {
     public class BreakTemplateFacadeServiceTests : InMemoryBreakTemplateFacadeService
     {

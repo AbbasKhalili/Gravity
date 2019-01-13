@@ -4,7 +4,7 @@ using Geotechnic.Facade.Contracts.ExamplePlace.Commands;
 using Gravity.Application;
 using Xunit;
 
-namespace Geotechnic.Facade.Services.Tests.Unit
+namespace Geotechnic.Facade.Services.Tests.Unit.ExamplePlaceFacade
 {
     public class ExamplePlaceFacadeServiceTests : InMemoryExamplePlaceFacadeService
     {

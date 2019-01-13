@@ -4,7 +4,7 @@ using Geotechnic.Facade.Contracts.Additives.Commands;
 using Gravity.Application;
 using Xunit;
 
-namespace Geotechnic.Facade.Services.Tests.Unit
+namespace Geotechnic.Facade.Services.Tests.Unit.AdditiveFacade
 {
     public class AdditiveFacadeServiceTests : InMemoryAdditiveFacadeService
     {
