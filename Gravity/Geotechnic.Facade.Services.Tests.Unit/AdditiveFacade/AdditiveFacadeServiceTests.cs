@@ -18,16 +18,16 @@ namespace Geotechnic.Facade.Services.Tests.Unit.AdditiveFacade
         private const long BranchId = 100;
         private const long Id = 1;
         private const string Title = "Wdss 5002";
+        private AdditiveId AdditiveId => _idBuilder.WithId(Id).Build();
 
         [Fact]
         public void Create_should_add_Additive_to_repository_by_commandBus()
         {
             DispatchAnAdditiveCreate();
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(AdditiveId);
 
-            expectedResult.Id.Should().BeEquivalentTo(id);
+            expectedResult.Id.Should().BeEquivalentTo(AdditiveId);
             expectedResult.BranchId.Should().Be(BranchId);
             expectedResult.Title.Should().Be(Title);
         }
@@ -40,12 +40,11 @@ namespace Geotechnic.Facade.Services.Tests.Unit.AdditiveFacade
             var title = "Az90";
             var updateCommand = new AdditiveUpdate()
                 { BranchId = BranchId, Id = Id, Title = title };
-            Bus.Dispatch(updateCommand);
+            FacadeService.Modify(updateCommand);
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(AdditiveId);
 
-            expectedResult.Id.Should().BeEquivalentTo(id);
+            expectedResult.Id.Should().BeEquivalentTo(AdditiveId);
             expectedResult.BranchId.Should().Be(BranchId);
             expectedResult.Title.Should().Be(title);
         }
@@ -57,10 +56,9 @@ namespace Geotechnic.Facade.Services.Tests.Unit.AdditiveFacade
 
             var deleteCommand = new AdditiveDelete()
                 { BranchId = BranchId, Id = Id };
-            Bus.Dispatch(deleteCommand);
+            FacadeService.Delete(deleteCommand);
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(AdditiveId);
 
             expectedResult.Should().BeNull();
         }
@@ -72,7 +70,7 @@ namespace Geotechnic.Facade.Services.Tests.Unit.AdditiveFacade
                 BranchId = BranchId,
                 Title = Title
             };
-            Bus.Dispatch(command);
+            FacadeService.Create(command);
         }
     }
 }

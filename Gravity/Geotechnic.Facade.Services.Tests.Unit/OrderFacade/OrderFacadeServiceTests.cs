@@ -60,10 +60,9 @@ namespace Geotechnic.Facade.Services.Tests.Unit.OrderFacade
         {
             DispatchAnOrderCreate();
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(OrderId);
 
-            expectedResult.Id.Should().BeEquivalentTo(id);
+            expectedResult.Id.Should().BeEquivalentTo(OrderId);
             expectedResult.BranchId.Should().Be(BranchId);
             expectedResult.BreakTemplateId.Should().BeEquivalentTo(BreakTemplateId);
             expectedResult.Additives.Should().BeEquivalentTo(Additives);
@@ -128,12 +127,11 @@ namespace Geotechnic.Facade.Services.Tests.Unit.OrderFacade
                 BreakTemplateId = breakTemplateid,
                 AdditivesId = additivesId,
             };
-            Bus.Dispatch(updateCommand);
+            FacadeService.Modify(updateCommand);
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(OrderId);
 
-            expectedResult.Id.Should().BeEquivalentTo(id);
+            expectedResult.Id.Should().BeEquivalentTo(OrderId);
             expectedResult.BranchId.Should().Be(BranchId);
             expectedResult.BreakTemplateId.Should().BeEquivalentTo(breakTemplateId);
             expectedResult.Additives.Should().BeEquivalentTo(additivesIds);
@@ -160,10 +158,9 @@ namespace Geotechnic.Facade.Services.Tests.Unit.OrderFacade
 
             var deleteCommand = new OrderDelete()
             { BranchId = BranchId, Id = Id };
-            Bus.Dispatch(deleteCommand);
+            FacadeService.Delete(deleteCommand);
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(OrderId);
 
             expectedResult.Should().BeNull();
         }
@@ -190,7 +187,7 @@ namespace Geotechnic.Facade.Services.Tests.Unit.OrderFacade
                 BreakTemplateId = _breakTemplateid,
                 AdditivesId = _additivesId,
             };
-            Bus.Dispatch(command);
+            FacadeService.Create(command);
         }
     }
 }

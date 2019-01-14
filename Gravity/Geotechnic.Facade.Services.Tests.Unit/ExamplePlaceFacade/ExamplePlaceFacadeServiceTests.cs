@@ -19,16 +19,16 @@ namespace Geotechnic.Facade.Services.Tests.Unit.ExamplePlaceFacade
         private const long Id = 1;
         private const string Character = "C";
         private const string Title = "Column";
+        private ExamplePlaceId ExamplePlaceId => _idBuilder.WithId(Id).Build();
 
         [Fact]
         public void Create_should_add_ExamplePlace_to_repository_by_commandBus()
         {
             DispatchAnExamplePlaceCreate();
             
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(ExamplePlaceId);
 
-            expectedResult.Id.Should().BeEquivalentTo(id);
+            expectedResult.Id.Should().BeEquivalentTo(ExamplePlaceId);
             expectedResult.BranchId.Should().Be(BranchId);
             expectedResult.Title.Should().Be(Title);
             expectedResult.Character.Should().Be(Character);
@@ -43,12 +43,11 @@ namespace Geotechnic.Facade.Services.Tests.Unit.ExamplePlaceFacade
             var character = "W";
             var updateCommand = new ExamplePlaceUpdate()
                 {BranchId = BranchId, Id = Id, Title = title, Character = character };
-            Bus.Dispatch(updateCommand);
+            FacadeService.Modify(updateCommand);
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(ExamplePlaceId);
 
-            expectedResult.Id.Should().BeEquivalentTo(id);
+            expectedResult.Id.Should().BeEquivalentTo(ExamplePlaceId);
             expectedResult.BranchId.Should().Be(BranchId);
             expectedResult.Title.Should().Be(title);
             expectedResult.Character.Should().Be(character);
@@ -61,10 +60,9 @@ namespace Geotechnic.Facade.Services.Tests.Unit.ExamplePlaceFacade
 
            var deleteCommand = new ExamplePlaceDelete()
                 { BranchId = BranchId, Id = Id };
-            Bus.Dispatch(deleteCommand);
+            FacadeService.Delete(deleteCommand);
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(ExamplePlaceId);
 
             expectedResult.Should().BeNull();
         }
@@ -77,7 +75,7 @@ namespace Geotechnic.Facade.Services.Tests.Unit.ExamplePlaceFacade
                 Title = Title,
                 Character = Character
             };
-            Bus.Dispatch(command);
+            FacadeService.Create(command);
         }
     }
 }

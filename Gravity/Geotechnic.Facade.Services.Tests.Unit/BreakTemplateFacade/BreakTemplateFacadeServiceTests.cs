@@ -20,6 +20,7 @@ namespace Geotechnic.Facade.Services.Tests.Unit.BreakTemplateFacade
         private const long Id = 1;
         private const int MoldCount = 5;
         private const string Title = "7-28-90";
+        private BreakTemplateId BreakTemplateId => _idBuilder.WithId(Id).Build();
         private readonly List<Molds> _moldList = new List<Molds>()
         {
             new Molds() {Age = 7, Count = 2}, new Molds() {Age = 28, Count = 2}, new Molds() {Age = 90, Count = 1}
@@ -30,10 +31,9 @@ namespace Geotechnic.Facade.Services.Tests.Unit.BreakTemplateFacade
         {
             DispatchBreakTemplateCreate();
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(BreakTemplateId);
 
-            expectedResult.Id.Should().BeEquivalentTo(id);
+            expectedResult.Id.Should().BeEquivalentTo(BreakTemplateId);
             expectedResult.BranchId.Should().Be(BranchId);
             expectedResult.Title.Should().Be(Title);
             expectedResult.MoldCount.Should().Be(MoldCount);
@@ -53,12 +53,11 @@ namespace Geotechnic.Facade.Services.Tests.Unit.BreakTemplateFacade
             };
             var updateCommand = new BreakTemplateUpdate()
                 { BranchId = BranchId, Id = Id, Title = title,MoldCount = moldCount, MoldList = moldList };
-            Bus.Dispatch(updateCommand);
+            FacadeService.Modify(updateCommand);
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(BreakTemplateId);
 
-            expectedResult.Id.Should().BeEquivalentTo(id);
+            expectedResult.Id.Should().BeEquivalentTo(BreakTemplateId);
             expectedResult.BranchId.Should().Be(BranchId);
             expectedResult.Title.Should().Be(title);
             expectedResult.MoldCount.Should().Be(moldCount);
@@ -72,10 +71,9 @@ namespace Geotechnic.Facade.Services.Tests.Unit.BreakTemplateFacade
 
             var deleteCommand = new BreakTemplateDelete()
                 { BranchId = BranchId, Id = Id };
-            Bus.Dispatch(deleteCommand);
+            FacadeService.Delete(deleteCommand);
 
-            var id = _idBuilder.WithId(Id).Build();
-            var expectedResult = Repository.Get(id);
+            var expectedResult = Repository.Get(BreakTemplateId);
 
             expectedResult.Should().BeNull();
         }
@@ -89,7 +87,7 @@ namespace Geotechnic.Facade.Services.Tests.Unit.BreakTemplateFacade
                 MoldCount = MoldCount,
                 MoldList = _moldList
             };
-            Bus.Dispatch(command);
+            FacadeService.Create(command);
         }
     }
 }
