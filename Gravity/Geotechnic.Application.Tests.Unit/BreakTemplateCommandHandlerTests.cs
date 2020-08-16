@@ -29,7 +29,7 @@ namespace Geotechnic.Application.Tests.Unit
             _idBuilder = new EntityIdBuilder<BreakTemplateId>();
             _sequenceHelper = new FakeSequenceHelper();
             _repository = new BreakTemplateRepository(Session, _sequenceHelper);
-            var orderRepository = new OrderRepository(Session, _sequenceHelper);
+            IOrderRepository orderRepository = new OrderRepository(Session, _sequenceHelper);
             _commandHandler = new BreakTemplateCommandHandler(_repository, orderRepository);
         }
         
